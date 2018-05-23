@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nishulka</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body background = "https://imgur.com/73y0NbP.jpg">
+  <span class="success_msgs">
+          <% if notice %>
+          <p class="successM">
+              <%= notice %>
+          </p> <% end %> </span>
+
+  <span class="error_msgs" style="background-color: yellow;">
+          <% if alert %>
+          <p class="alert">
+              <%= alert %>
+          </p> <% end %> </span>
+
+<%= yield %>
+<script>
+    setTimeout("$('.error_msgs').fadeOut('slow')", 2000)
+    setTimeout("$('.success_msgs').fadeOut('slow')", 2000)
+</script>
+
+</body>
+</html>

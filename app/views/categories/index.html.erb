@@ -1,0 +1,118 @@
+<br>
+<div class="container" style="list-style-type: none;">
+  <div class="leftbar">
+    <br>
+    <center><h1><%= link_to 'Nishukla', root_path %></h1>
+    <p>Free Classified Website</p>
+    </center>
+  </div>
+
+  <br>
+  <div class="center-column" >
+    <div class="center-three">
+      <table>
+        <tr>
+          <th class="table-header"><%= link_to 'Jobs', category_path(@jobs) %></th>
+        </tr>
+        <tr>
+          <td>
+            <!-- This targets all of the job categories and finds all of their sub categories -->
+            <% @jobs.subcategories.each do |subcategory| %>
+            <br>
+            <ul class="nodots">
+              <li><%= link_to subcategory.name, category_subcategory_path(@jobs, subcategory) %></li>
+            </ul>
+            <% end %>
+            <br>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="center-three">
+      <table>
+        <tr>
+          <th class="table-header"><%= link_to 'Housing', category_path(@housing) %></th>
+        </tr>
+        <tr>
+          <td>
+            <% @housing.subcategories.each do |subcategory| %>
+            <br>
+            <ul class="nodots">
+              <li><%= link_to subcategory.name, category_subcategory_path(@housing, subcategory) %></li>
+            </ul>
+            <% end %>
+            <br>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="center-three">
+      <table>
+        <tr>
+          <th class="table-header"><%= link_to 'For Sale', category_path(@forsale) %></th>
+        </tr>
+        <tr>
+          <td>
+            <% @forsale.subcategories.each do |subcategory| %>
+            <br>
+            <ul class="nodots">
+              <li><%= link_to subcategory.name, category_subcategory_path(@forsale, subcategory) %></li>
+            </ul>
+            <% end %>
+            <br>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="center-three">
+      <table>
+        <tr>
+          <th class="table-header"><%= link_to 'Services', category_path(@services) %></th>
+        </tr>
+        <tr>
+          <td>
+            <% @services.subcategories.each do |subcategory| %>
+            <br>
+            <ul class="nodots">
+              <li><%= link_to subcategory.name, category_subcategory_path(@services, subcategory) %></li>
+            </ul>
+            <% end %>
+            <br>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="rightbar">
+    <ul class="rightbar-top">
+      <center>
+      <ul class="nodots">
+        <%= link_to 'Post an Ad', new_listing_path %>
+        <% if user_signed_in? %>
+          <li><%= link_to 'My Account', edit_user_registration_path %></li>
+          <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li> <!-- ANytime we destroy something, we have to include delete -->
+          <li><%= link_to 'My Ads', myads_path %></li>
+        <% else %>
+          <li><%= link_to 'Login', new_user_session_path %></li>
+          <li><%= link_to 'Register', new_user_registration_path %></li>
+        <% end %>
+      </ul>
+        <br>
+        <p>search Nishulka</p>
+        <%= form_tag search_listings_path, method: :get do |f| %>
+        <%= text_field_tag :search, nil, placeholder: 'search' %>
+        <%= text_field_tag :location, nil, placeholder: 'near' %>
+        <%= select_tag :category, options_for_select(Category.all.map{ |c| [c.name, c.id]}) %>
+        <br>
+        <%= submit_tag 'Search All Ads' %>
+        <% end %>
+    </center>
+      <br />
+      <li><%= link_to 'help and about', help_path %></li>
+      <li><%= link_to 'terms of service', terms_path %></li>
+      <!--li>privacy policy</li>
+      <li>about us</li>
+      <li>contact</li-->
+    </ul>
+  </div>
+</div>
